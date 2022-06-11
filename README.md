@@ -1,5 +1,5 @@
 ## find-word
-finds a word that  it reapets more times
+finds a word that  is reapeted more times
 
 ### Code description
 
