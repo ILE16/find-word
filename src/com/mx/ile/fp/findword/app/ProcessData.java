@@ -6,19 +6,18 @@ import com.mx.ile.fp.findword.utils.IFunctionalFindWord;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.function.Function;
 
 public class ProcessData {
-    private String frase = "Hola mama pero pero te quiero mucho  pero pero mucho mucho mucho mama pero en verdad mucho mucho mama pero pero pero ";
-    //2.- convertirlas en Array de string
+    private String phrase  ;
     private final Function<String , String[]> convertToStringArray = word -> word.split(" ");
+    //2.- convertirlas en Array de string
 
-    private final String[]wordsArray = convertToStringArray.apply(frase);
 
     private final IFunctionalAddWords functionalAddWords = (wA) -> {
         int index = 1;
         Map<String , Integer> words = new HashMap<>();
-
         for (int i = 0; i < wA.length; i++) {
             if(words.containsKey(wA[i])){
                 //entra cuando ya se ha añadido un valor al mapa o sea puede ser mayor a 1
@@ -33,7 +32,8 @@ public class ProcessData {
     };
 
 
-    IFunctionalFindWord functionalFindWord = (words) ->{
+   private final IFunctionalFindWord functionalFindWord = (words) ->{
+        String[] wordsArray = convertToStringArray.apply(phrase);
         int value = words.get(wordsArray[0]);
         String word = wordsArray[0];
         for(int i = 1; i< words.size(); i++){
@@ -48,8 +48,13 @@ public class ProcessData {
 
 
 
+
+
     public void excecute(){
-        Map<String, Integer> finalMap = functionalFindWord.findWord(functionalAddWords.addToWordsMap(wordsArray));
+        Scanner in = new Scanner(System.in);
+        System.out.println("Write a word");
+        phrase = in.nextLine();
+        Map<String, Integer> finalMap = functionalFindWord.findWord(functionalAddWords.addToWordsMap(convertToStringArray.apply(phrase)));
         System.out.println(finalMap);
     }
 }
